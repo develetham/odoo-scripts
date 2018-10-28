@@ -6,6 +6,6 @@
 
 # Algo de Florituras. Le damos color
 
-while read LINE
+while read addon
     do echo "Hoy tenemos un $addon"
 done < addons_list.txt
