@@ -74,6 +74,7 @@ while read adName adURL
         #cd $Odoo_Addons_Base
     
         ## Comienzo de la instalación del módiulo
+        cd $Odoo_Addons_Base
         echo "${ROJO} $Odoo_Ad_Num Instalando Modulo -> $adName de $adURL ${NC}"
         git clone -b $Odoo_VERSION $adURL
     
