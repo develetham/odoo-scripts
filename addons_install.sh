@@ -73,7 +73,7 @@ while read adName adURL
         
         ## Comienzo de la instalación del módiulo
         cd $Odoo_Addons_Base
-        
+
         echo "${ROJO} $Odoo_Ad_Num Instalando Modulo -> $adName de $adURL ${NC}"
         git clone -b $Odoo_VERSION $adURL
     
@@ -93,7 +93,7 @@ while read adName adURL
 
 done < ${AddonsFile}
 
-cat >> /etc/odoogit .conf << FIN
+cat >> /etc/odoo.conf << FIN
     [options]
     ; Aqui colocamos los datos de configuración básicos:
     admin_passwd = admin
