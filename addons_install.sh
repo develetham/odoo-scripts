@@ -13,7 +13,7 @@ AddonsFile=addons_list.txt
 
 # Algo de Florituras. Le damos color
 
-if [ "$TERM" == "xterm-color" ]; then
+if [ "$TERM" == "xterm-256color" ]; then
  # Cosas Bonitas para el Script
  ROJO='\033[0;31m'
  SROJO='\033[1;31m'
@@ -74,21 +74,31 @@ while read adName adURL
         ## Comienzo de la instalación del módiulo
         cd $Odoo_Addons_Base
 
-        echo "${ROJO} $Odoo_Ad_Num Instalando Modulo -> $adName de $adURL ${NC}"
+        echo "$Odoo_Ad_Num - Instalando Modulo -> $adName de $adURL"
+        if ! (git clone -b $Odoo_VERSION $adURL) then
+            echo "${ROJO}El repositorio ${adName} no existe para la verion ${Odoo_VERSION} ${NC}"
+            exit 1
+            # Put Failure actions here...
+        else
+            Odoo_Addons_Path="${Odoo_Addons_Path},${Odoo_Addons_Base}/${adName}"
+            echo ${Odoo_Addons_Path}
+            cd ./${adName}
+            Odoo_Req="requirements.txt"
+            if [ -f "$Odoo_Req" ]
+            then
+                echo "$file found."
+                pip install -r $Odoo_Req
+                pip3 install -r $Odoo_Req
+            else
+                echo "Sin Requerimientos solicitados"
+            fi
+
+        fi
+
+
         git clone -b $Odoo_VERSION $adURL
     
-        Odoo_Addons_Path="${Odoo_Addons_Path},${Odoo_Addons_Base}/${adName}"
-        echo ${Odoo_Addons_Path}
-        cd ./${adName}
-        Odoo_Req="requirements.txt"
-        if [ -f "$Odoo_Req" ]
-        then
-            echo "$file found."
-            pip install -r $Odoo_Req
-            pip3 install -r $Odoo_Req
-        else
-            echo "Sin Requerimientos solicitados"
-        fi
+
 
 
 done < ${AddonsFile}
