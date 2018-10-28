@@ -42,10 +42,6 @@ Odoo_Addons_Base="$Odoo_Addons_Raw/extra-addons"
 Odoo_Addons_Path="addonspath=/odoo/odoo-server/addons"
 Odoo_Ad_Num=0
 
-#echo $Odoo_VERSION
-#echo $Odoo_Addons_Raw
-#echo $Odoo_Addons_Base
-#echo $Odoo_Addons_Path
 
 pip install -U setuptools
 pip install -U httpagentparser
@@ -76,8 +72,7 @@ while read adName adURL
 
         echo "$Odoo_Ad_Num - Instalando Modulo -> $adName de $adURL"
         if ! (git clone -b $Odoo_VERSION $adURL) then
-            echo "${ROJO}El repositorio ${adName} no existe para la verion ${Odoo_VERSION} ${NC}"
-            exit 1
+            echo "${SROJO}El repositorio ${adName} no existe para la verion ${Odoo_VERSION} ${NC}"
             # Put Failure actions here...
         else
             Odoo_Addons_Path="${Odoo_Addons_Path},${Odoo_Addons_Base}/${adName}"
@@ -87,19 +82,13 @@ while read adName adURL
             if [ -f "$Odoo_Req" ]
             then
                 echo "$file found."
-                pip install -r $Odoo_Req
+                #pip install -r $Odoo_Req
                 pip3 install -r $Odoo_Req
             else
                 echo "Sin Requerimientos solicitados"
             fi
 
-        fi
-
-
-        git clone -b $Odoo_VERSION $adURL
-    
-
-
+        fi    
 
 done < ${AddonsFile}
 
