@@ -93,7 +93,7 @@ while read adName adURL
 
 done < ${AddonsFile}
 
-cat >> /etc/odoo.conf << FIN
+cat >> /etc/odoogit .conf << FIN
     [options]
     ; Aqui colocamos los datos de configuración básicos:
     admin_passwd = admin
@@ -117,3 +117,4 @@ cat >> /etc/odoo.conf << FIN
 
 FIN
 
+echo "Parece estar todo el listado satisfecho"
